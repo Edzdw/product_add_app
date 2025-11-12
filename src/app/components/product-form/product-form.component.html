@@ -1,0 +1,289 @@
+<!-- Product creation/edit form. Uses reactive forms and Tailwind CSS for
+     styling. All fields defined in the product model are included. The form
+     presents inputs in a responsive grid layout. -->
+<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+  <h2 class="text-2xl font-bold mb-4" *ngIf="!isEdit">Create Product</h2>
+  <h2 class="text-2xl font-bold mb-4" *ngIf="isEdit">Edit Product</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Product Code -->
+      <div>
+        <label class="block font-medium mb-1" for="product_code">Product Code</label>
+        <input
+          id="product_code"
+          type="text"
+          formControlName="product_code"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+          [ngClass]="{ 'border-red-500': productForm.get('product_code')?.invalid && (productForm.get('product_code')?.dirty || productForm.get('product_code')?.touched) }"
+        />
+        <p class="text-red-500 text-sm mt-1" *ngIf="productForm.get('product_code')?.invalid && (productForm.get('product_code')?.dirty || productForm.get('product_code')?.touched)">
+          Product code is required.
+        </p>
+      </div>
+      <!-- Product Name -->
+      <div>
+        <label class="block font-medium mb-1" for="product_name">Product Name</label>
+        <input
+          id="product_name"
+          type="text"
+          formControlName="product_name"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+          [ngClass]="{ 'border-red-500': productForm.get('product_name')?.invalid && (productForm.get('product_name')?.dirty || productForm.get('product_name')?.touched) }"
+        />
+        <p class="text-red-500 text-sm mt-1" *ngIf="productForm.get('product_name')?.invalid && (productForm.get('product_name')?.dirty || productForm.get('product_name')?.touched)">
+          Product name is required.
+        </p>
+      </div>
+      <!-- Product Description -->
+      <div class="md:col-span-2">
+        <label class="block font-medium mb-1" for="product_description">Product Description</label>
+        <textarea
+          id="product_description"
+          formControlName="product_description"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+          rows="3"
+        ></textarea>
+      </div>
+      <!-- Product Type -->
+      <div>
+        <label class="block font-medium mb-1" for="product_type">Product Type</label>
+        <input
+          id="product_type"
+          type="text"
+          formControlName="product_type"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+          [ngClass]="{ 'border-red-500': productForm.get('product_type')?.invalid && (productForm.get('product_type')?.dirty || productForm.get('product_type')?.touched) }"
+        />
+        <p class="text-red-500 text-sm mt-1" *ngIf="productForm.get('product_type')?.invalid && (productForm.get('product_type')?.dirty || productForm.get('product_type')?.touched)">
+          Product type is required.
+        </p>
+      </div>
+      <!-- Price -->
+      <div>
+        <label class="block font-medium mb-1" for="price">Price</label>
+        <input
+          id="price"
+          type="number"
+          formControlName="price"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Agent Price -->
+      <div>
+        <label class="block font-medium mb-1" for="agentPrice">Agent Price</label>
+        <input
+          id="agentPrice"
+          type="number"
+          formControlName="agentPrice"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Wholesale Price -->
+      <div>
+        <label class="block font-medium mb-1" for="wholesalePrice">Wholesale Price</label>
+        <input
+          id="wholesalePrice"
+          type="number"
+          formControlName="wholesalePrice"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Retail Price -->
+      <div>
+        <label class="block font-medium mb-1" for="retailPrice">Retail Price</label>
+        <input
+          id="retailPrice"
+          type="number"
+          formControlName="retailPrice"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Order Quantity -->
+      <div>
+        <label class="block font-medium mb-1" for="order_quantity">Order Quantity</label>
+        <input
+          id="order_quantity"
+          type="number"
+          formControlName="order_quantity"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Quantity per Packaging -->
+      <div>
+        <label class="block font-medium mb-1" for="quantity_per_packaging">Quantity per Packaging</label>
+        <input
+          id="quantity_per_packaging"
+          type="number"
+          formControlName="quantity_per_packaging"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Selected Quantity Type -->
+      <div>
+        <label class="block font-medium mb-1" for="selectedQuantityType">Quantity Type</label>
+        <input
+          id="selectedQuantityType"
+          type="text"
+          formControlName="selectedQuantityType"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Pricing Policy -->
+      <div>
+        <label class="block font-medium mb-1" for="pricing_policy">Pricing Policy</label>
+        <input
+          id="pricing_policy"
+          type="text"
+          formControlName="pricing_policy"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Cost -->
+      <div>
+        <label class="block font-medium mb-1" for="cost">Cost</label>
+        <input
+          id="cost"
+          type="number"
+          formControlName="cost"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Buying Price -->
+      <div>
+        <label class="block font-medium mb-1" for="buying_price">Buying Price</label>
+        <input
+          id="buying_price"
+          type="number"
+          formControlName="buying_price"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Discount Rate -->
+      <div>
+        <label class="block font-medium mb-1" for="discount_rate">Discount Rate</label>
+        <input
+          id="discount_rate"
+          type="number"
+          formControlName="discount_rate"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Tax Rate -->
+      <div>
+        <label class="block font-medium mb-1" for="tax_rate">Tax Rate</label>
+        <input
+          id="tax_rate"
+          type="number"
+          formControlName="tax_rate"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Stock Quantity -->
+      <div>
+        <label class="block font-medium mb-1" for="stock_quantity">Stock Quantity</label>
+        <input
+          id="stock_quantity"
+          type="number"
+          formControlName="stock_quantity"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Category Name -->
+      <div>
+        <label class="block font-medium mb-1" for="category_name">Category Name</label>
+        <input
+          id="category_name"
+          type="text"
+          formControlName="category_name"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Tag -->
+      <div>
+        <label class="block font-medium mb-1" for="tag">Tag</label>
+        <input
+          id="tag"
+          type="text"
+          formControlName="tag"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Material Type -->
+      <div>
+        <label class="block font-medium mb-1" for="material_type">Material Type</label>
+        <input
+          id="material_type"
+          type="text"
+          formControlName="material_type"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- UOM Name -->
+      <div>
+        <label class="block font-medium mb-1" for="uom_name">Unit of Measure Name</label>
+        <input
+          id="uom_name"
+          type="text"
+          formControlName="uom_name"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Standard UOM Code -->
+      <div>
+        <label class="block font-medium mb-1" for="standard_uom">Unit of Measure Code</label>
+        <input
+          id="standard_uom"
+          type="text"
+          formControlName="standard_uom"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+      <!-- Packaging Instruction -->
+      <div class="md:col-span-2">
+        <label class="block font-medium mb-1" for="packaging_instruction">Packaging Instructions</label>
+        <textarea
+          id="packaging_instruction"
+          formControlName="packaging_instruction"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+          rows="2"
+        ></textarea>
+      </div>
+      <!-- Product Image URL -->
+      <div class="md:col-span-2">
+        <label class="block font-medium mb-1" for="product_image">Product Image URL</label>
+        <input
+          id="product_image"
+          type="text"
+          formControlName="product_image"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+
+      <!-- Is Active -->
+      <div class="flex items-center mt-2">
+        <input
+          id="is_active"
+          type="checkbox"
+          formControlName="is_active"
+          class="mr-2"
+        />
+        <label class="font-medium" for="is_active">Is Active</label>
+      </div>
+    </div>
+    <div class="flex justify-end mt-6 space-x-3">
+      <button
+        type="button"
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-4 py-2 rounded"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,75 @@
+<!-- <div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl font-bold">Danh sách sản phẩm</h2>
+  <a
+    routerLink="/products/new"
+    class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded"
+  >
+    + Thêm sản phẩm
+  </a>
+</div> -->
+
+<table class="min-w-full bg-white border border-gray-200">
+  <thead class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+    <tr>
+      <th class="py-3 px-4 text-left">ID</th>
+      <th class="py-3 px-4 text-left">Mã SP</th>
+      <th class="py-3 px-4 text-left">Tên sản phẩm</th>
+      <th class="py-3 px-4 text-center">Hình ảnh</th>
+      <th class="py-3 px-4 text-center">Giá </th>
+      <!-- 🧩 Nhóm 3 giá -->
+       
+      <th class="py-3 px-4 text-right">Số lượng</th>
+      <th class="py-3 px-4 text-center">Hành động</th>
+    </tr>
+  </thead>
+
+  <tbody class="text-gray-700">
+    <tr *ngFor="let p of products" class="border-b border-gray-200 hover:bg-gray-50">
+      <td class="py-3 px-4">{{ p.product_id }}</td>
+      <td class="py-3 px-4">{{ p.product_code }}</td>
+      <td class="py-3 px-4 font-semibold">{{ p.product_name }}</td>
+
+      <!-- Hình ảnh -->
+      <td class="py-3 px-4 text-center">
+        <img
+          [src]="p.product_image || 'https://via.placeholder.com/80x80?text=No+Image'"
+          alt="{{ p.product_name }}"
+          class="w-16 h-16 object-cover rounded-md border"
+        />
+      </td>
+
+
+      <td class="py-3 px-4 text-right leading-tight">
+          <div *ngIf="p.retailPrice && p.retailPrice > 0">
+            <span class="font-medium text-gray-600">Retail:</span>
+            <span class="font-semibold text-green-700">{{ p.retailPrice | number }}đ</span>
+          </div>
+          <div *ngIf="p.agentPrice && p.agentPrice > 0">
+            <span class="font-medium text-gray-600">Agency:</span>
+            <span class="font-semibold text-blue-700">{{ p.agentPrice | number }}đ</span>
+          </div>
+          <div *ngIf="p.wholesalePrice && p.wholesalePrice > 0">
+            <span class="font-medium text-gray-600">Wholesale:</span>
+            <span class="font-semibold text-orange-700">{{ p.wholesalePrice | number }}đ</span>
+          </div>  
+      </td>
+
+      <td class="py-3 px-4 text-right">{{ p.order_quantity }}</td>
+
+      <td class="py-3 px-4 text-center">
+        <button
+          (click)="onEdit(p)"
+          class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2"
+        >
+          Edit
+        </button>
+        <button
+          (click)="onDelete(p.product_id)"
+          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

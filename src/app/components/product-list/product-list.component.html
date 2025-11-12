@@ -1,0 +1,108 @@
+<div class="flex flex-col md:flex-row min-h-screen bg-gray-50">
+  <!-- ===== Sidebar trái ===== -->
+  <aside
+    class="w-full md:w-1/4 bg-white border-r border-gray-200 p-6 flex flex-col gap-4"
+  >
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">
+      Chức năng quản lý
+    </h2>
+
+    <!-- Menu chính ở đầu sidebar: Chứa tính năng (ví dụ: thêm sản phẩm) -->
+    <div class="flex flex-col gap-2 mb-6">
+      <button
+        routerLink="/products/new"
+        class="bg-green-500 hover:bg-green-600 text-white py-2 rounded-md font-medium transition"
+      >
+        + Thêm sản phẩm
+      </button>
+    </div>
+    <!-- Phần lựa chọn kiểu hiển thị ở dưới -->
+    <div class="flex flex-col gap-2">
+      <p class="text-gray-700 font-medium mb-2">Kiểu hiển thị:</p>
+      <button
+        (click)="setViewMode('table')"
+        [ngClass]="
+          viewMode === 'table'
+            ? 'bg-blue-600 text-white'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+        "
+        class="py-2 rounded-md font-medium transition"
+      >
+        Dạng bảng
+      </button>
+
+      <button
+        (click)="setViewMode('card')"
+        [ngClass]="
+          viewMode === 'card'
+            ? 'bg-blue-600 text-white'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+        "
+        class="py-2 rounded-md font-medium transition"
+      >
+        Dạng thẻ
+      </button>
+    </div>
+
+    <div class="mt-8 text-sm text-gray-500">
+      <p>💡 Bạn có thể chọn chế độ hiển thị phù hợp với mình.</p>
+    </div>
+  </aside>
+
+  <!-- ===== Nội dung chính ===== -->
+  <main class="flex-1 p-6">
+    <h1 class="text-2xl font-bold mb-4">Danh sách sản phẩm</h1>
+
+    <!-- 🔍 Search & Sort controls -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+      <!-- Search input -->
+      <input
+        [(ngModel)]="searchQuery"
+        type="text"
+        placeholder="Tìm kiếm theo mã hoặc tên sản phẩm..."
+        class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <!-- Sort field selector -->
+      <div class="flex items-center gap-2">
+        <label for="sort-field" class="text-sm font-medium text-gray-700">Sắp xếp:</label>
+        <select
+          id="sort-field"
+          [(ngModel)]="sortField"
+          class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="name">Tên</option>
+          <option value="price">Giá</option>
+          <option value="order">Số lượng</option>
+        </select>
+
+        <!-- Sort order selector -->
+        <select
+          id="sort-order"
+          [(ngModel)]="sortOrder"
+          class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="asc">Tăng dần</option>
+          <option value="desc">Giảm dần</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Dạng bảng -->
+    <app-product-table
+      *ngIf="viewMode === 'table'"
+      [products]="filteredProducts"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    ></app-product-table>
+
+    <!-- Dạng thẻ -->
+    <app-product-card
+      *ngIf="viewMode === 'card'"
+      [products]="filteredProducts"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (review)="onReview($event)"
+    ></app-product-card>
+  </main>
+</div>
